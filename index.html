@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UAS Planner — November–Desember 2026</title>
+<style>
+:root{--navy:#172554;--blue:#2563eb;--pink:#ec4899;--pale:#fdf2f8;--bg:#f7f8fc;--ink:#20243a;--muted:#687086;--line:#e7e9f1;--green:#15803d;--yellow:#a16207}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:linear-gradient(125deg,#172554,#312e81 65%,#9d174d);color:white;padding:28px 18px 24px}
+.wrap{max-width:980px;margin:auto}h1{font-size:clamp(27px,5vw,40px);line-height:1.12;margin:0 0 8px}header p{margin:0;color:#e5e7eb}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.stat{background:#ffffff18;border:1px solid #ffffff30;border-radius:14px;padding:12px}.stat b{display:block;font-size:22px}
+main{padding:18px;max-width:980px;margin:auto}.toolbar{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:14px}
+input,select{font:inherit;padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:white;color:var(--ink);min-width:0}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 18px}.filters button,.action{border:1px solid var(--line);background:white;padding:8px 12px;border-radius:999px;color:var(--ink);font:inherit;cursor:pointer}.filters button.active{background:var(--navy);color:white;border-color:var(--navy)}
+.notice{background:#fff7ed;border:1px solid #fed7aa;padding:13px 15px;border-radius:13px;margin:14px 0 18px}.notice b{color:#9a3412}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;margin:12px 0;box-shadow:0 3px 12px #18244a08}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.date{font-weight:750;color:var(--blue);font-size:13px;letter-spacing:.02em}.card h2{font-size:19px;margin:3px 0 5px}.meta{color:var(--muted);font-size:13px}.tag{font-size:11px;padding:4px 8px;border-radius:99px;background:var(--pale);color:#9d174d;white-space:nowrap;height:max-content}
+ul{padding-left:20px;margin:10px 0}li{margin:5px 0}.checklist{list-style:none;padding:0;margin:12px 0 0}.checklist li{display:flex;gap:9px;align-items:flex-start;border-top:1px solid #f0f1f5;padding:8px 0}.checklist input{margin-top:4px;accent-color:var(--pink)}.checklist label{flex:1}
+.status{display:inline-block;font-size:12px;color:var(--yellow);background:#fffbeb;padding:3px 8px;border-radius:99px;margin-top:8px}
+.small{font-size:13px;color:var(--muted)}.section-title{font-size:20px;margin:25px 0 8px;color:var(--navy)}
+.calendar-wrap{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;margin:18px 0}.calendar-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.calendar-head h2{font-size:19px;margin:0;color:var(--navy)}.calendar-head button{border:1px solid var(--line);background:white;border-radius:9px;padding:7px 11px;font:inherit;cursor:pointer}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.weekday,.day{min-width:0;text-align:center}.weekday{font-size:11px;color:var(--muted);padding:5px 0}.day{border:1px solid transparent;background:#f8f9fc;border-radius:10px;min-height:58px;padding:6px 2px 4px;cursor:pointer;color:var(--ink);font:inherit}.day.empty{visibility:hidden}.day .num{font-size:13px;font-weight:650}.day.selected{outline:2px solid var(--navy);outline-offset:1px}.day.today{border-color:var(--navy)}.dots{display:flex;justify-content:center;gap:3px;flex-wrap:wrap;margin-top:5px}.dot{width:7px;height:7px;border-radius:50%;display:inline-block}.day.has-items{background:#f1f5ff}.day .count{display:block;font-size:9px;color:var(--muted);line-height:1.2;margin-top:2px}.legend{display:flex;flex-wrap:wrap;gap:9px 14px;margin-top:12px}.legend span{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}.calendar-hint{font-size:12px;color:var(--muted);margin:10px 0 0}
+@media(max-width:600px){.day{min-height:49px}.calendar-wrap{padding:12px}.weekday{font-size:10px}}
+.tba{border:1px dashed #c7cbe0;background:#fafaff}.progress{height:8px;background:#e9eaf2;border-radius:99px;overflow:hidden;margin:8px 0 15px}.progress div{height:100%;background:linear-gradient(90deg,var(--blue),var(--pink));width:0}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:600px){.toolbar{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.stat{padding:9px}.stat b{font-size:18px}.top{display:block}.tag{display:inline-block;margin-top:7px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>UAS Daily Planner</h1>
+<p>November–Desember 2026 · Jadwal, persiapan, dan checklist kelas</p>
+<div class="stats">
+<div class="stat"><b id="total">0</b><span>agenda bertanggal</span></div>
+<div class="stat"><b id="done">0</b><span>checklist selesai</span></div>
+<div class="stat"><b>07.00</b><span>reminder harian WIB</span></div>
+</div></div></header>
+<main>
+<div class="notice"><b>Catatan:</b> Checklist tersimpan di browser/perangkat ini. Website ini tidak mengirim notifikasi sendiri. Pengingat harian pukul 07.00 WIB dan penekanan H-7, H-3, H-1, serta hari-H diatur terpisah.</div>
+<div class="toolbar">
+<input id="search" placeholder="Cari mata kuliah atau tugas..." aria-label="Cari agenda">
+<select id="filter" aria-label="Filter agenda"><option value="all">Semua agenda</option><option value="upcoming">Belum selesai</option><option value="done">Sudah selesai</option></select>
+</div>
+<div class="filters">
+<button class="active" data-month="all">Semua bulan</button><button data-month="11">November</button><button data-month="12">Desember</button>
+</div>
+<section class="calendar-wrap" aria-label="Kalender UAS">
+  <div class="calendar-head">
+    <button id="prevMonth" aria-label="Bulan sebelumnya">‹</button>
+    <h2 id="calendarTitle">November 2026</h2>
+    <button id="nextMonth" aria-label="Bulan berikutnya">›</button>
+  </div>
+  <div class="calendar-grid" id="calendar">
+    <div class="weekday">Sen</div><div class="weekday">Sel</div><div class="weekday">Rab</div><div class="weekday">Kam</div><div class="weekday">Jum</div><div class="weekday">Sab</div><div class="weekday">Min</div>
+  </div>
+  <div class="legend">
+    <span><i class="dot" style="background:#2563eb"></i>Presentasi / pengumuman</span>
+    <span><i class="dot" style="background:#dc2626"></i>Deadline</span>
+    <span><i class="dot" style="background:#d97706"></i>Ujian / aktivasi</span>
+    <span><i class="dot" style="background:#7c3aed"></i>Pameran</span>
+    <span><i class="dot" style="background:#059669"></i>Gladi / hari-H</span>
+  </div>
+  <p class="calendar-hint">Tanggal bertitik memiliki agenda UAS. Ketuk tanggal untuk melihat agendanya; ketuk lagi untuk menampilkan semua agenda di bulan tersebut.</p>
+</section>
+<div class="progress"><div id="bar"></div></div>
+<div id="agenda"></div>
+<h2 class="section-title">Agenda tanpa tanggal tetap</h2>
+<div class="card tba"><h2>Pengantar Produksi Media</h2><p>Tanggal dan bentuk tugas UAS belum diumumkan. Pantau EMAS, dosen, dan grup kelas.</p><span class="status">TBA</span></div>
+<div class="card"><h2>Catatan informasi yang menunggu konfirmasi</h2>
+<ul>
+<li><b>Kewirausahaan (kelas A, B, dan C):</b> presentasi dilakukan gabungan dengan urutan kelompok yang diacak, bukan dipisahkan per kelas. Laporan dan deck dikumpulkan sebelum kelompok tampil; urutan diumumkan 20 November.</li>
+<li><b>Bahasa Indonesia:</b> deadline 10 Desember di EMAS; pastikan ke dosen apakah pukul 13.00 atau 23.59 WIB.</li>
+<li><b>Psikologi Komunikasi dan Seni Murni:</b> waktu loading diatur fleksibel oleh masing-masing kelompok.</li>
+<li><b>Kewarganegaraan:</b> jam latihan gladi pada 14–15 Desember akan diinformasikan H-1. Rentang peminjaman auditorium adalah 09.00–16.00 WIB.</li>
+</ul>
+</div>
+</main>
+<footer>UAS Planner · Data berdasarkan informasi kelas yang sudah diterima · Periksa pengumuman dosen untuk perubahan.</footer>
+<script>
+const items=[
+{date:"2026-11-20",title:"Kewirausahaan — pengumuman urutan presentasi lintas kelas",time:"Pengumuman",place:"Info kelas A, B, dan C",tag:"Penting",details:["Cek urutan kelompok dari kelas A, B, dan C untuk sesi 27 November, 4 Desember, dan 11 Desember. Urutan presentasi diacak dan tidak dipisahkan berdasarkan kelas.","Setelah urutan keluar, pastikan tenggat pengumpulan laporan dan deck sebelum kelompok tampil."],tasks:["Cek pengumuman urutan presentasi","Catat tanggal tampil kelompok","Pastikan tenggat laporan dan deck"]},
+{date:"2026-11-27",title:"Kewirausahaan — presentasi gabungan kelas A, B, dan C",time:"13.00–14.40 WIB",place:"Auditorium Vokasi UI",tag:"Presentasi kelas",details:["Setiap kelompok mendapat 5 menit presentasi dan 2 menit tanya jawab panel; semua anggota wajib berbicara.","Reviewer hadir, mengalokasikan virtual budget Rp500.000.000 ke kelompok lain, menuliskan jumlah + alasan terkuat + kekhawatiran terbesar.","Reviewer Funding Form dikumpulkan paling lambat 15.30 WIB."],tasks:["Pastikan kelompok siap sesuai urutan","Jika menjadi reviewer: siapkan alokasi budget dan alasan","Isi Reviewer Funding Form sebelum 15.30","Hadir pada sesi kelas"]},
+{date:"2026-12-04",title:"Kewirausahaan — presentasi gabungan kelas A, B, dan C",time:"13.00–14.40 WIB",place:"Auditorium Vokasi UI",tag:"Presentasi kelas",details:["Format presentasi 5 menit + panel Q&A 2 menit per kelompok.","Reviewer hadir dan mengalokasikan virtual budget Rp500.000.000 kepada kelompok lain.","Reviewer Funding Form deadline 15.30 WIB."],tasks:["Cek urutan dan kesiapan kelompok","Jika menjadi reviewer: siapkan alokasi budget dan alasan","Isi Reviewer Funding Form sebelum 15.30","Hadir pada sesi kelas"]},
+{date:"2026-12-09",title:"Pengantar Ilmu Komunikasi — pengumpulan tugas",time:"Deadline 13.00 WIB",place:"Google Drive / WhatsApp · Individu",tag:"Deadline",details:["Analisis kunjungan ke 1 Dekade Indonesia Drum dan Perkusi Festival di Teater Besar, Taman Ismail Marzuki.","Bahas bentuk komunikasi budaya; alat musik sebagai simbol; interaksi antarbudaya; bahasa dan simbol; komunikasi nonverbal; pelestarian budaya; tradisional vs modern; identitas/keberagaman; respons penonton.","Kesimpulan: pembelajaran komunikasi budaya, musik sebagai jembatan lintas budaya, dan efektivitas festival dalam memperkenalkan/melestarikan budaya."],tasks:["Susun analisis sembilan aspek komunikasi budaya","Tulis kesimpulan sesuai arahan","Periksa tugas sebagai tugas individu","Kirim melalui Google Drive / WhatsApp sebelum 13.00"]},
+{date:"2026-12-10",title:"Psikologi Komunikasi — aktivasi produk & booth",time:"08.00–09.40 WIB",place:"Selasar VB, Vokasi UI",tag:"Aktivasi langsung",details:["Tampilkan inovasi produk bisnis dari UTS kepada mahasiswa Vokasi/UI.","Siapkan konsep booth, display yang menarik, penjelasan produk dan pemasaran, serta cara menarik dan meyakinkan pengunjung.","Waktu loading fleksibel sesuai kebutuhan masing-masing kelompok; tidak ada laporan tambahan."],tasks:["Matangkan konsep dan alur booth","Siapkan display dan kebutuhan aktivasi","Bagi peran anggota kelompok","Atur sendiri waktu loading","Siapkan penjelasan produk dan strategi pemasaran"]},
+{date:"2026-12-10",title:"Bahasa Indonesia — pengumpulan artikel ilmiah",time:"Deadline 13.00 atau 23.59 WIB — konfirmasi dosen",place:"EMAS · Individu per anggota",tag:"Deadline",details:["Artikel ilmiah berdasarkan proyek dokumenter.","Pastikan seluruh revisi dan masukan dosen sudah diterapkan."],tasks:["Finalisasi artikel ilmiah masing-masing anggota","Cek semua revisi dosen","Unggah ke EMAS","Konfirmasi apakah deadline pukul 13.00 atau 23.59"]},
+{date:"2026-12-11",title:"Hukum dan Etika — written test & oral test",time:"08.00–09.40 WIB",place:"VB505",tag:"Ujian",details:["Written test dilakukan terlebih dahulu, lalu oral test satu per satu dengan dosen.","Pelajari materi dosen, diskusi, dan studi kasus. Fokus pada logika, solusi, dan tindakan.","Materi/outline lanjutan akan diunggah di EMAS."],tasks:["Pantau materi dan outline di EMAS","Pelajari materi serta diskusi kelas","Latih analisis kasus: logika, solusi, tindakan","Siapkan diri untuk written test dan oral test individual"]},
+{date:"2026-12-11",title:"Kewirausahaan — presentasi gabungan kelas A, B, dan C",time:"13.00–14.40 WIB",place:"Auditorium Vokasi UI",tag:"Presentasi kelas",details:["Format presentasi 5 menit + panel Q&A 2 menit per kelompok.","Reviewer hadir dan mengalokasikan virtual budget Rp500.000.000 kepada kelompok lain.","Reviewer Funding Form deadline 15.30 WIB."],tasks:["Cek urutan dan kesiapan kelompok","Jika menjadi reviewer: siapkan alokasi budget dan alasan","Isi Reviewer Funding Form sebelum 15.30","Hadir pada sesi kelas"]},
+{date:"2026-12-14",title:"Seni Murni — pameran karya 2D",time:"08.00–09.40 WIB",place:"VB505",tag:"Pameran",details:["Pameran 10 kelompok; tema dan karya bebas. Penempatan/display ditentukan melalui spin wheel.","Setiap kelompok menyiapkan kurator serta penjelasan pameran dan karya.","Karya sudah harus selesai sebelum hari-H. Loading fleksibel. Laporan/katalog opsional dan boleh dibuat pada hari-H."],tasks:["Selesaikan karya 2D sebelum hari-H","Siapkan kurator dan penjelasan pameran/karya","Cek hasil spin wheel lokasi display","Atur waktu loading kelompok","Jika diperlukan, siapkan laporan atau katalog"]},
+{date:"2026-12-14",title:"Kewarganegaraan — gladi kotor",time:"Rentang peminjaman 09.00–16.00 WIB; jam latihan kelompok menyusul",place:"Auditorium Vokasi UI",tag:"Gladi",details:["Auditorium telah dipinjam pukul 09.00–16.00. Jam latihan aktual kelompok akan diinformasikan H-1."],tasks:["Pantau info jam latihan dari panitia","Siapkan peran dan jobdesc drama","Bawa kebutuhan latihan sesuai arahan"]},
+{date:"2026-12-15",title:"Kewarganegaraan — gladi bersih",time:"Rentang peminjaman 09.00–16.00 WIB; jam latihan kelompok menyusul",place:"Auditorium Vokasi UI",tag:"Gladi",details:["Auditorium telah dipinjam pukul 09.00–16.00. Jam latihan aktual kelompok akan diinformasikan H-1."],tasks:["Cek info jam latihan H-1","Pastikan dialog, blocking, dan jobdesc siap","Cek kebutuhan pertunjukan dan pameran"]},
+{date:"2026-12-16",title:"Kewarganegaraan — pertunjukan teater",time:"Persiapan 09.00–16.00 · Pertunjukan 13.00–15.00 WIB",place:"Auditorium Vokasi UI",tag:"Hari-H",details:["Laksanakan peran/jobdesc drama teater. Pameran terbuka untuk umum."],tasks:["Datang sesuai arahan waktu persiapan","Jalankan peran dan jobdesc","Pastikan kebutuhan pertunjukan/pameran siap"]},
+{date:"2026-12-16",title:"Kewarganegaraan — tugas individu KPK",time:"Deadline 23.59 WIB",place:"EMAS · E-learning di kpk.go.id",tag:"Deadline individu",details:["Selesaikan e-learning “Pengetahuan Antikorupsi Dasar dan Integritas” di kpk.go.id.","Kumpulkan sertifikat, ringkasan 500–1.000 kata, dan refleksi 500–1.000 kata dengan metode DIEP: Describe, Interpret, Evaluate, Plan."],tasks:["Selesaikan e-learning KPK","Unduh/simpan sertifikat","Tulis ringkasan 500–1.000 kata","Tulis refleksi 500–1.000 kata dengan DIEP","Unggah semua berkas ke EMAS sebelum 23.59"]}
+];
+const $=s=>document.querySelector(s);let month="all",calendarMonth=11,selectedDate=null;
+const key=(d,t,i)=>"uas26:"+d+":"+t+":"+i;
+function colorFor(x){
+ const t=(x.tag+" "+x.title).toLowerCase();
+ if(t.includes("deadline")) return "#dc2626";
+ if(t.includes("gladi")||t.includes("hari-h")) return "#059669";
+ if(t.includes("pameran")) return "#7c3aed";
+ if(t.includes("ujian")||t.includes("aktivasi")) return "#d97706";
+ return "#2563eb";
+}
+function renderCalendar(){
+ const year=2026,monthIndex=calendarMonth-1;
+ $("#calendarTitle").textContent=new Date(year,monthIndex,1).toLocaleDateString("id-ID",{month:"long",year:"numeric"});
+ const first=new Date(year,monthIndex,1),offset=(first.getDay()+6)%7,days=new Date(year,monthIndex+1,0).getDate();
+ const head=[...document.querySelectorAll("#calendar .weekday")].map(e=>e.outerHTML).join("");
+ let cells="";
+ for(let i=0;i<offset;i++) cells+='<div class="day empty"></div>';
+ for(let d=1;d<=days;d++){
+  const date=`${year}-${String(calendarMonth).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+  const dayItems=items.filter(x=>x.date===date);
+  const dots=[...new Set(dayItems.map(colorFor))].map(c=>`<i class="dot" style="background:${c}"></i>`).join("");
+  cells+=`<button class="day ${dayItems.length?"has-items":""} ${selectedDate===date?"selected":""}" data-date="${date}" aria-label="${d} ${$("#calendarTitle").textContent}${dayItems.length?", ada "+dayItems.length+" agenda":", tidak ada agenda"}"><span class="num">${d}</span>${dayItems.length?`<span class="dots">${dots}</span><span class="count">${dayItems.length} agenda</span>`:""}</button>`;
+ }
+ $("#calendar").innerHTML=head+cells;
+ document.querySelectorAll(".day[data-date]").forEach(b=>b.addEventListener("click",()=>{
+  selectedDate=selectedDate===b.dataset.date?null:b.dataset.date;
+  month=String(calendarMonth).padStart(2,"0");
+  document.querySelectorAll("[data-month]").forEach(x=>x.classList.toggle("active",x.dataset.month===month));
+  renderCalendar();render();
+ }));
+}
+function render(){
+ const q=$("#search").value.toLowerCase(),f=$("#filter").value;
+ const filtered=items.map((x,i)=>({...x,i})).filter(x=>(month==="all"||x.date.slice(5,7)===month)&&(!selectedDate||x.date===selectedDate)&&(`${x.title} ${x.place} ${x.details.join(" ")}`.toLowerCase().includes(q))&&(f==="all"||(f==="done"?x.tasks.every((_,j)=>localStorage.getItem(key(x.date,x.title+"|"+x.tag,j))==="1"):!x.tasks.every((_,j)=>localStorage.getItem(key(x.date,x.title+"|"+x.tag,j))==="1"))));
+ $("#total").textContent=items.length;
+ let total=0,done=0;items.forEach(x=>x.tasks.forEach((_,j)=>{total++;if(localStorage.getItem(key(x.date,x.title+"|"+x.tag,j))==="1")done++}));
+ $("#done").textContent=done;$("#bar").style.width=(total?done/total*100:0)+"%";
+ $("#agenda").innerHTML=filtered.map(x=>`<article class="card"><div class="top"><div><div class="date">${new Date(x.date+"T12:00:00").toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</div><h2>${x.title}</h2><div class="meta">${x.time} · ${x.place}</div></div><span class="tag">${x.tag}</span></div><ul>${x.details.map(d=>`<li>${d}</li>`).join("")}</ul><div class="small"><b>Checklist persiapan</b></div><ul class="checklist">${x.tasks.map((t,j)=>{const k=key(x.date,x.title+"|"+x.tag,j),checked=localStorage.getItem(k)==="1";return `<li><input type="checkbox" id="c${x.i}_${j}" data-k="${k}" ${checked?"checked":""}><label for="c${x.i}_${j}">${t}</label></li>`}).join("")}</ul></article>`).join("")||'<p class="small">Tidak ada agenda yang cocok dengan pencarian/filter.</p>';
+ document.querySelectorAll(".checklist input").forEach(el=>el.addEventListener("change",e=>{localStorage.setItem(e.target.dataset.k,e.target.checked?"1":"0");render()}));
+}
+$("#search").addEventListener("input",render);$("#filter").addEventListener("change",render);
+$("#prevMonth").addEventListener("click",()=>{calendarMonth=calendarMonth===11?12:11;month=String(calendarMonth).padStart(2,"0");selectedDate=null;document.querySelectorAll("[data-month]").forEach(x=>x.classList.toggle("active",x.dataset.month===month));renderCalendar();render()});
+$("#nextMonth").addEventListener("click",()=>{calendarMonth=calendarMonth===11?12:11;month=String(calendarMonth).padStart(2,"0");selectedDate=null;document.querySelectorAll("[data-month]").forEach(x=>x.classList.toggle("active",x.dataset.month===month));renderCalendar();render()});
+document.querySelectorAll("[data-month]").forEach(b=>b.addEventListener("click",()=>{month=b.dataset.month;selectedDate=null;if(month!=="all")calendarMonth=Number(month);document.querySelectorAll("[data-month]").forEach(x=>x.classList.toggle("active",x===b));renderCalendar();render()}));
+renderCalendar();render();
+</script>
+</body></html>
